@@ -21,6 +21,7 @@
     "tachyons": "^4.11.1",
     "typescript": "^3.7.2"
   },
+  "proxy": "http://localhost:3001",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

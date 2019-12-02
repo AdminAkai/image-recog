@@ -15,7 +15,6 @@ class App extends Component {
     return (
       <div className="App">
         <Particles params={particlesConfig} className='particles' />
-        <Logo />
         <Router>
           <Switch>
             <Route exact path='/' component={SignIn}/>

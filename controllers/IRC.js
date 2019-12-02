@@ -11,7 +11,7 @@ const ImageRecognitionController = express.Router()
 ImageRecognitionController.post('/register', async (req, res) => {
   try {
     const registeredUser = await IRCModelApi.addNewUser(req.body)
-    return res.status(201s).json(registeredUser)
+    return res.status(201).json(registeredUser)
   } catch(e) {
     const message = 'Failed to register user'
     res.status(500).json({
