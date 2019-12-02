@@ -5,21 +5,42 @@ import axios from 'axios'
 export default class SignIn extends Component {
 
     state = {
-        username: "",
-        password: ""
+        currentUserId: "",
+        enteredUsername: "",
+        enteredPassword: "",
+        loggedIn: false,
+        date: new Date()
     }
+
+    currentDashboard = `/dashboard/${this.state.currentUserId}`
 
     onTextChange = (event) => {
         const previousState = { ...this.state }
+        console.log(`${event.target.name}: ${event.target.value}`)
         previousState[event.target.name] = event.target.value
         this.setState(previousState)
     }
-
-    onSubmit = async (event) => {
-        event.preventDefault()
-        const newSignIn = await axios.post('/signin', this.state)
-    }
         
+    verifyData = async (event) => {
+        event.preventDefault()
+        const currentUser = {
+            username: this.state.enteredUsername,
+            password: this.state.enteredPassword,
+            date: this.state.date
+        }
+        const verifiedUser = await axios.post('/verify', currentUser)
+        console.log(verifiedUser)
+        console.log(verifiedUser.data._id)
+        if (verifiedUser.data !== 'error') {
+            this.setState({currentUserId: verifiedUser.data._id}, () => {
+                this.currentDashboard = `/dashboard/${this.state.currentUserId}`
+                this.setState({loggedIn: true})
+            })
+        } else {
+            alert('Username/Password Incorrect')
+        }
+    }
+
     render() {
         return(
             <div className="flex center">
