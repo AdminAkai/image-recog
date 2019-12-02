@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { BrowserRouter  as Router, Switch, Route } from 'react-router-dom'
-import Logo from './components/logo/Logo'
 import ImageLinkForm from './components/imagelinkform/ImageLinkForm'
 import SignIn from './components/signin/SignIn' 
 import Register from './components/register/Register' 
@@ -18,7 +17,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path='/' component={SignIn}/>
-            <Route exact path='/register' component={Register} />
+            <Route path='/register' component={Register} />
             <Route path='/dashboard/:id' component={ImageLinkForm}/>
           </Switch>
         </Router>

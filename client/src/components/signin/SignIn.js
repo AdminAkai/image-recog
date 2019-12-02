@@ -23,10 +23,10 @@ export default class SignIn extends Component {
     render() {
         return(
             <div className="flex center">
-                <article class="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-                    <main class="pa4 black-80">
+                <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+                    <main className="pa4 black-80">
                         <form className="ba b--transparent ph0 mh0s">
-                                <label className="db fw6 lh-copy f6 mt3" for="enteredUsername" placeholder='Username'>Username</label>
+                                <label className="db fw6 lh-copy f6 mt3" placeholder='Username'>Username</label>
                                 <input
                                     className="b input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     name="enteredUsername"
@@ -35,7 +35,7 @@ export default class SignIn extends Component {
                                     onChange={this.onTextChange}
                                     value={this.state.enteredUsername}
                                 ></input>
-                                <label className="db fw6 lh-copy f6 mt3" for="enteredPassword" placeholder='Password'>Password</label>
+                                <label className="db fw6 lh-copy f6 mt3" placeholder='Password'>Password</label>
                                 <input
                                     className="b input-reset ba bg-transparent hover-bg-black hover-white w-100"
                                     name="enteredPassword"
