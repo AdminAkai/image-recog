@@ -115,5 +115,6 @@ module.exports = {
     getAllImages,
     getImage,
     addNewImage,
-    deleteImage
+    deleteImage,
+    newLogin
 }
