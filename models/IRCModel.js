@@ -73,6 +73,16 @@ const deleteUser = (id) => {
     return UserCollection.deleteOne({_id: id})
 }
 
+const verifyAuth = async (username, password) => {
+    const verifyUser = await UserCollection.findOne({username: username})
+    if (password === verifyUser.password) {
+      return verifyUser
+    } else {
+      message = "error"
+      return message
+    }
+  }
+
 // Image History CRUD
 const getAllImages = () => {
     return ImageHistCollection.find({}).sort({inputAt: 'descending'})
@@ -101,6 +111,7 @@ module.exports = {
     addNewUser,
     updateUser,
     deleteUser,
+    verifyAuth,
     getAllImages,
     getImage,
     addNewImage,
