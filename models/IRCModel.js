@@ -21,6 +21,13 @@ const UserSchema = new mongoose.Schema({
     }
 })
 
+const LoginHistSchema = new mongoose.Schema({
+    loginAttemptDate: {
+        type: Date,
+        required: true,
+    }
+})
+
 const ImageHistSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
@@ -43,6 +50,7 @@ const ImageHistSchema = new mongoose.Schema({
 
 const UserCollection = mongoose.model('Users', UserSchema)
 const ImageHistCollection = mongoose.model('ImageHist', ImageHistSchema)
+const LoginHistCollection = mongoose.model('LoginHist', LoginHistSchema)
 
 // User CRUD
 const getAllUsers = () => {
@@ -80,6 +88,11 @@ const addNewImage = (data) => {
 
 const deleteImage = (id) => {
     return ImageHistCollection.deleteOne({_id: id})
+}
+
+// login History
+const newLogin = (data) => {
+    return LoginHistCollection.create(data)
 }
 
 module.exports = {

@@ -20,8 +20,9 @@ export default class SignIn extends Component {
 
     createAccount = async (event) => {
         event.preventDefault()
-        const newData = await axios.post('/register', this.state)
-        console.log(newData.data)
+        console.log('click')
+        const data = { ...this.state }
+        await axios.post('/register', data)
         alert(`${this.state.enteredEmail} registered!`)
     }
         
