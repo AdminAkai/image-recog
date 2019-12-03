@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Navigation from '../navigation/Navigation'
 import axios from 'axios'
+import './ImageHistory.css'
 
 
 const Clarifai = require('clarifai')
@@ -15,7 +16,8 @@ export default class ImageHistory extends Component {
         currentUserId: this.props.match.params.id,
         currentUsername: '',
         allImages: [],
-        isImageHistory: true
+        isImageHistory: true,
+        allFaces: []
       }
 
     componentDidMount() {
@@ -46,42 +48,57 @@ export default class ImageHistory extends Component {
         console.log(this.state.allImages[0].imageUrl)
     }
       
-    // calculateFaceLocation = (data) => {
-    //     const image = document.getElementById('input-image')
-    //     const width = Number(image.width)
-    //     const height = Number(image.height)
-    //     return {
-    //         leftCol: (data.left_col * width) * .985,
-    //         topRow: (data.top_row * height) * .985,
-    //         rightCol: (width - (data.right_col * width)) * .985,
-    //         bottomRow: (height - (data.bottom_row * height)) * .985
-    //     }
-    // }
+    calculateFaceLocation = (data, id) => {
+        const image = document.getElementById(`${id}`)
+        const width = Number(image.width)
+        const height = Number(image.height)
+        return {
+            leftCol: (data.left_col * width),
+            topRow: (data.top_row * height),
+            rightCol: (width - (data.right_col * width)),
+            bottomRow: (height - (data.bottom_row * height))
+        }
+    }
 
-    // recognizeFace = async (image) => {
-    //     const allFaces = []
-    //     console.log('click')
-    //     const newDetect = await app.models.predict(Clarifai.FACE_DETECT_MODEL, image)
-    //     console.log(newDetect.outputs[0].data.regions)
-    //     newDetect.outputs[0].data.regions.forEach(region => 
-    //         allFaces.push(this.calculateFaceLocation(region.region_info.bounding_box))
-    //     )
-    //     console.log(allFaces)
-    //     return allFaces  
-    // }
+    recognizeFace = async (event, image, id) => {
+        event.preventDefault()
+        const allFaces = []
+        console.log('click')
+        const newDetect = await app.models.predict(Clarifai.FACE_DETECT_MODEL, image)
+        console.log(newDetect.outputs[0].data.regions)
+        newDetect.outputs[0].data.regions.forEach(region => 
+            allFaces.push(this.calculateFaceLocation(region.region_info.bounding_box, id))
+        )
+        console.log(allFaces)
+        this.setState({allFaces}, () => {
+            console.log(this.state.allFaces)
+        })
+
+    }
 
     render() {
 
-        const everyImage = this.state.allImages.map(image => {
+        const everyImage = this.state.allImages.map((image, k) => {
             console.log(image)
+            
+            const allBoxes = this.state.allFaces.map((area, i) => {
+                return (
+                    <div className='bounding-box' key={i} style={{
+                        top: area.topRow, 
+                        right: area.rightCol, 
+                        bottom: area.bottomRow, 
+                        left: area.leftCol}}
+                    ></div>
+                )
+            })
             return (
                 <div className="absolute mt4">
-                    <img src={image.imageUrl} width="500px" height="auto"/>
+                    <img src={image.imageUrl} width="500px" height="auto" id={k}/>
+                    <button onClick={(event) => this.recognizeFace(event, image.imageUrl, k)} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib mt3">Scan</button>
+                    {allBoxes}
                 </div>
             )   
         })
-
-        console.log(everyImage)
 
         return (
             <div>
