@@ -5,10 +5,10 @@ Testing API integration MongoDB
 General use
 
 # Wireframe
-![Wireframe](./images/wireframejpg.jpg)
+![Wireframe](/images/wireframejpg.jpg)
 
 # ERD (Entity Relationship Diagram)
-![ERD](./images/ERD.jpg)
+![ERD](/images/ERD.jpg)
 
 # Project Board
 https://trello.com/b/WYeu5LpP/image-recog

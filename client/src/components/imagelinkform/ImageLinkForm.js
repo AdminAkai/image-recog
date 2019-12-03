@@ -50,6 +50,7 @@ export default class ImageLinkForm extends Component {
         this.setState({imageUrl: this.state.input}, async () => {
             console.log('click')
             const newDetect = await app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.imageUrl)
+            console.log(newDetect.outputs[0].data.regions[0])
             console.log(newDetect.outputs[0].data.regions[0].region_info.bounding_box)
             this.displayFaceBox(this.calculateFaceLocation(newDetect.outputs[0].data.regions[0].region_info.bounding_box))
         })
