@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Navigation from '../navigation/Navigation'
 import axios from 'axios'
 import './ImageHistory.css'
+import moment from 'moment'
 
 
 const Clarifai = require('clarifai')
@@ -73,7 +74,11 @@ export default class ImageHistory extends Component {
         this.setState({allFaces}, () => {
             console.log(this.state.allFaces)
         })
+    }
 
+    formateDateTime = (date) => {
+        let formatdateTime = moment(date).format("LLLL")
+        return formatdateTime
     }
 
     render() {
@@ -92,7 +97,8 @@ export default class ImageHistory extends Component {
                 )
             })
             return (
-                <div className="absolute mt4">
+                <div className="ma4 container-images">
+                    <h1>{this.formateDateTime(image.inputAt)}</h1>
                     <img src={image.imageUrl} width="500px" height="auto" id={k}/>
                     <button onClick={(event) => this.recognizeFace(event, image.imageUrl, k)} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib mt3">Scan</button>
                     {allBoxes}
@@ -106,12 +112,15 @@ export default class ImageHistory extends Component {
                 <p className='f3'>
                     {'Image History by Date'}
                 </p>
-                {this.state.allImages 
-                ?
-                everyImage
-                : 
-                null}
+                <div className="center ma container">
+                        {this.state.allImages 
+                        ?
+                        everyImage
+                        : 
+                        null}
+                </div>
             </div>
+
         )
     }
 }
