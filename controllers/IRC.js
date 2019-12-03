@@ -22,9 +22,9 @@ ImageRecognitionController.get('/getuser/:id', async (req, res) => {
 })
 
 // Get image by User ID
-ImageRecognitionController.get('/imagehistory', async (req, res) => {
+ImageRecognitionController.get('/imagehistory/:id', async (req, res) => {
   try {
-    const allImages = await IRCModelApi.getAllImagesByUserID(req.body)
+    const allImages = await IRCModelApi.getAllImagesByUserID(req.params.id)
     return res.status(200).json(allImages)
   } catch(e) {
     const message = 'Failed to get image history'

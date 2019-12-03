@@ -16,6 +16,7 @@ export default class ImageHistory extends Component {
         currentUserId: this.props.match.params.id,
         currentUsername: '',
         displayBox: [],
+        allImages: []
       }
 
     componentDidMount() {
@@ -32,7 +33,8 @@ export default class ImageHistory extends Component {
     }
 
     getAllImages = async () => {
-        
+        const allImages = await axios.get(`/imagehistory/${this.state.currentUserId}`)
+        console.log(allImages)
     }
       
     calculateFaceLocation = (data) => {
