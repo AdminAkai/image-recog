@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 export default class SignIn extends Component {
 
     state = {
         currentUserId: "",
-        enteredUsername: "",
-        enteredPassword: "",
+        username: "",
+        password: "",
         loggedIn: false,
-        date: new Date()
+        loginAttemptDate: new Date()
     }
 
     currentDashboard = `/dashboard/${this.state.currentUserId}`
@@ -21,13 +21,17 @@ export default class SignIn extends Component {
         this.setState(previousState)
     }
         
+
+    renderRedirect = () => {
+        if (this.state.loggedIn) {
+            return <Redirect to={this.currentDashboard}></Redirect>
+        }
+    }
+
+
     verifyData = async (event) => {
         event.preventDefault()
-        const currentUser = {
-            username: this.state.enteredUsername,
-            password: this.state.enteredPassword,
-            date: this.state.date
-        }
+        const currentUser = { ...this.state }
         console.log(currentUser)
         const verifiedUser = await axios.post('/verify', currentUser)
         console.log(verifiedUser)
@@ -51,20 +55,20 @@ export default class SignIn extends Component {
                                 <label className="db fw6 lh-copy f6 mt3" placeholder='Username'>Username</label>
                                 <input
                                     className="b input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                                    name="enteredUsername"
+                                    name="username"
                                     type="string"
                                     required
                                     onChange={this.onTextChange}
-                                    value={this.state.enteredUsername}
+                                    value={this.state.username}
                                 ></input>
                                 <label className="db fw6 lh-copy f6 mt3" placeholder='Password'>Password</label>
                                 <input
                                     className="b input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                                    name="enteredPassword"
+                                    name="password"
                                     type="password"
                                     required
                                     onChange={this.onTextChange}
-                                    value={this.state.enteredPassword}
+                                    value={this.state.password}
                                 ></input>
                                 <input
                                     className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib mt3" 

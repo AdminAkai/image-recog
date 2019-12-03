@@ -15,7 +15,8 @@ export default class ImageLinkForm extends Component {
     state = {
         input: '',
         imageUrl:'',
-        displayBox: {}
+        displayBox: {},
+        date: new Date()
       }
 
     calculateFaceLocation = (data) => {
