@@ -37,13 +37,12 @@ export default class ImageHistory extends Component {
         const arrayOfImages = []
         const allImages = await axios.get(`/imagehistory/${this.props.match.params.id}`)
         console.log(allImages)
-        allImages.data.forEach(image => {
-            arrayOfImages.push(image)
+        allImages.data.forEach(x => {
+            arrayOfImages.push(x)
         })
         console.log(arrayOfImages)
-        this.setState({allImages: arrayOfImages}, () => {
-            console.log(this.state.allImages)
-        })
+        this.setState({allImages: arrayOfImages})
+        console.log(this.state.allImages[0].imageUrl)
     }
       
     calculateFaceLocation = (data) => {
@@ -72,13 +71,14 @@ export default class ImageHistory extends Component {
 
     render() {
 
-        // const everyImage = this.state.allImages.map(image => {
-        //     console.log(image)
-        //     return (
-        //         // <img src={image.imageUrl}/>
-        //         <p>test</p>
-        //     )
-        // })
+        const everyImage = this.state.allImages.map(image => {
+            console.log(image)
+            return (
+                <div className="absolute mt4">
+                    <img src={image.imageUrl}/>
+                </div>
+            )
+        })
 
         return (
             <div>
@@ -88,7 +88,8 @@ export default class ImageHistory extends Component {
                 </p>
                 {this.state.allImages 
                 ?
-                <img src={this.state.allImages[0]}></img>
+                // <img src={this.state.allImages[0]}></img>
+                {everyImage}
                 : 
                 null}
             </div>
