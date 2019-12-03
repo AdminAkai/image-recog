@@ -14,7 +14,8 @@ export default class ImageHistory extends Component {
     state = {
         currentUserId: this.props.match.params.id,
         currentUsername: '',
-        allImages: []
+        allImages: [],
+        isImageHistory: true
       }
 
     componentDidMount() {
@@ -35,39 +36,39 @@ export default class ImageHistory extends Component {
     getAllImages = async () => {
         console.log(this.state.allImages)
         const arrayOfImages = []
+        console.log(arrayOfImages instanceof Array)
         const allImages = await axios.get(`/imagehistory/${this.props.match.params.id}`)
-        console.log(allImages)
-        allImages.data.forEach(x => {
-            arrayOfImages.push(x)
+        console.log(allImages.data instanceof Array)
+        allImages.data.forEach(element => {
+          arrayOfImages.push(element)  
         })
-        console.log(arrayOfImages)
         this.setState({allImages: arrayOfImages})
         console.log(this.state.allImages[0].imageUrl)
     }
       
-    calculateFaceLocation = (data) => {
-        const image = document.getElementById('input-image')
-        const width = Number(image.width)
-        const height = Number(image.height)
-        return {
-            leftCol: (data.left_col * width) * .985,
-            topRow: (data.top_row * height) * .985,
-            rightCol: (width - (data.right_col * width)) * .985,
-            bottomRow: (height - (data.bottom_row * height)) * .985
-        }
-    }
+    // calculateFaceLocation = (data) => {
+    //     const image = document.getElementById('input-image')
+    //     const width = Number(image.width)
+    //     const height = Number(image.height)
+    //     return {
+    //         leftCol: (data.left_col * width) * .985,
+    //         topRow: (data.top_row * height) * .985,
+    //         rightCol: (width - (data.right_col * width)) * .985,
+    //         bottomRow: (height - (data.bottom_row * height)) * .985
+    //     }
+    // }
 
-    recognizeFace = async (image) => {
-        const allFaces = []
-        console.log('click')
-        const newDetect = await app.models.predict(Clarifai.FACE_DETECT_MODEL, image)
-        console.log(newDetect.outputs[0].data.regions)
-        newDetect.outputs[0].data.regions.forEach(region => 
-            allFaces.push(this.calculateFaceLocation(region.region_info.bounding_box))
-        )
-        console.log(allFaces)
-        return allFaces  
-    }
+    // recognizeFace = async (image) => {
+    //     const allFaces = []
+    //     console.log('click')
+    //     const newDetect = await app.models.predict(Clarifai.FACE_DETECT_MODEL, image)
+    //     console.log(newDetect.outputs[0].data.regions)
+    //     newDetect.outputs[0].data.regions.forEach(region => 
+    //         allFaces.push(this.calculateFaceLocation(region.region_info.bounding_box))
+    //     )
+    //     console.log(allFaces)
+    //     return allFaces  
+    // }
 
     render() {
 
@@ -82,7 +83,7 @@ export default class ImageHistory extends Component {
 
         return (
             <div>
-                <Navigation />
+                <Navigation currentUser={this.props.match.params.id} isImageHistory={this.state.isImageHistory}/>
                 <p className='f3'>
                     {'Image History by Date'}
                 </p>

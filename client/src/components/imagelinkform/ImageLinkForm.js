@@ -77,8 +77,8 @@ export default class ImageLinkForm extends Component {
                 inputByName: this.state.currentUsername
             }
             console.log(data)
-            const newImageInput = await axios.post('/image', data)
-            console.log(newImageInput)
+            // const newImageInput = await axios.post('/image', data)
+            // console.log(newImageInput)
         })
     }
 
