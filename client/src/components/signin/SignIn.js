@@ -28,6 +28,7 @@ export default class SignIn extends Component {
             password: this.state.enteredPassword,
             date: this.state.date
         }
+        console.log(currentUser)
         const verifiedUser = await axios.post('/verify', currentUser)
         console.log(verifiedUser)
         console.log(verifiedUser.data._id)

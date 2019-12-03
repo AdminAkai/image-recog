@@ -23,7 +23,7 @@ export default class SignIn extends Component {
         console.log('click')
         const data = { ...this.state }
         await axios.post('/register', data)
-        alert(`${this.state.enteredEmail} registered!`)
+        alert(`${this.state.email} registered!`)
     }
         
     render() {

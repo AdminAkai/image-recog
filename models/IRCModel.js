@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('./connection.js')
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -101,6 +101,10 @@ const deleteImage = (id) => {
 }
 
 // login History
+const getAllLogins = () => {
+    return LoginHistCollection.find({}).sort({loginAttemptDate: 'descending'})
+}
+
 const newLogin = (data) => {
     return LoginHistCollection.create(data)
 }
@@ -116,5 +120,6 @@ module.exports = {
     getImage,
     addNewImage,
     deleteImage,
-    newLogin
+    newLogin,
+    getAllLogins
 }

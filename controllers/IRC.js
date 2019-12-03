@@ -25,6 +25,7 @@ ImageRecognitionController.post('/register', async (req, res) => {
 ImageRecognitionController.post('/verify', async (req, res) => {
   console.log(req.body.username)
   console.log(req.body.password)
+  console.log(req.body.date)
   try {
     await IRCModelApi.newLogin(req.body.date)
     const verifiedUser = await IRCModelApi.verifyAuth(req.body.username, req.body.password)

@@ -14,3 +14,4 @@ General use
 https://trello.com/b/WYeu5LpP/image-recog
 
 # Deployed App
+https://stack-with-clarifai.herokuapp.com/
