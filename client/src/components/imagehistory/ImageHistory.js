@@ -72,13 +72,13 @@ export default class ImageHistory extends Component {
 
     render() {
 
-        const everyImage = this.state.allImages.map(oneImage => {
-            console.log(oneImage)
+        const everyImage = this.state.allImages.map(image => {
+            console.log(image)
             return (
                 <div className="absolute mt4">
-                    <img src={oneImage.imageUrl}/>
+                    <img src={image.imageUrl}/>
                 </div>
-            )
+            )   
         })
 
         return (
