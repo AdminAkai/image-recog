@@ -16,7 +16,6 @@ export default class SignIn extends Component {
 
     onTextChange = (event) => {
         const previousState = { ...this.state }
-        console.log(`${event.target.name}: ${event.target.value}`)
         previousState[event.target.name] = event.target.value
         this.setState(previousState)
     }
@@ -32,10 +31,7 @@ export default class SignIn extends Component {
     verifyData = async (event) => {
         event.preventDefault()
         const currentUser = { ...this.state }
-        console.log(currentUser)
         const verifiedUser = await axios.post('/verify', currentUser)
-        console.log(verifiedUser)
-        console.log(verifiedUser.data._id)
         if (verifiedUser.data !== 'error') {
             this.setState({currentUserId: verifiedUser.data._id}, () => {
                 this.currentDashboard = `/dashboard/${this.state.currentUserId}`
