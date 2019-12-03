@@ -85,7 +85,7 @@ export default class ImageLinkForm extends Component {
     render() {
         return (
             <div>
-            <Navigation />
+            <Navigation currentUser={this.props.match.params.id}/>
                 <p className='f3'>
                     {'This will detect faces in your pictures.'}
                 </p>

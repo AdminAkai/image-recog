@@ -89,7 +89,7 @@ const getAllImages = () => {
 }
 
 const getAllImagesByUserID = (id) => {
-    return ImageHistCollection.find({_id: id}).sort({inputAt: 'descending'})
+    return ImageHistCollection.find({inputById: id}).sort({inputAt: 'descending'})
 }
 
 const getImage = (id) => {

@@ -21,6 +21,7 @@ export default class ImageHistory extends Component {
 
     componentDidMount() {
         this.setUser()
+        console.log(this.state.currentUserId)
         this.getAllImages()
     }
 
@@ -34,7 +35,7 @@ export default class ImageHistory extends Component {
     }
 
     getAllImages = async () => {
-        const allImages = await axios.get(`/imagehistory/${this.state.currentUserId}`)
+        const allImages = await axios.get(`/imagehistory/${this.props.match.params.id}`)
         console.log(allImages)
     }
       
