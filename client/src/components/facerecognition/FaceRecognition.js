@@ -8,7 +8,7 @@ export default class FaceRecognition extends Component {
         const allBorders = this.props.boxArea.map((area, i) => {
             return (
                 <div className='bounding-box' key={i} style={{
-                    top:area.topRow, 
+                    top: area.topRow, 
                     right: area.rightCol, 
                     bottom: area.bottomRow, 
                     left: area.leftCol}}

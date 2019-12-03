@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import FaceRecognition from '../facerecognition/FaceRecognition'
 import Navigation from '../navigation/Navigation'
 import axios from 'axios'
 
@@ -15,7 +14,6 @@ export default class ImageHistory extends Component {
     state = {
         currentUserId: this.props.match.params.id,
         currentUsername: '',
-        displayBox: [],
         allImages: []
       }
 
@@ -35,8 +33,17 @@ export default class ImageHistory extends Component {
     }
 
     getAllImages = async () => {
+        console.log(this.state.allImages)
+        const arrayOfImages = []
         const allImages = await axios.get(`/imagehistory/${this.props.match.params.id}`)
         console.log(allImages)
+        allImages.data.forEach(image => {
+            arrayOfImages.push(image)
+        })
+        console.log(arrayOfImages)
+        this.setState({allImages: arrayOfImages}, () => {
+            console.log(this.state.allImages)
+        })
     }
       
     calculateFaceLocation = (data) => {
@@ -51,21 +58,37 @@ export default class ImageHistory extends Component {
         }
     }
 
-    displayFaceBox = (displayBox) => {
-        this.setState({displayBox})
-        console.log(this.state.displayBox)
+    recognizeFace = async (image) => {
+        const allFaces = []
+        console.log('click')
+        const newDetect = await app.models.predict(Clarifai.FACE_DETECT_MODEL, image)
+        console.log(newDetect.outputs[0].data.regions)
+        newDetect.outputs[0].data.regions.forEach(region => 
+            allFaces.push(this.calculateFaceLocation(region.region_info.bounding_box))
+        )
+        console.log(allFaces)
+        return allFaces  
     }
 
     render() {
+
+        // const everyImage = this.state.allImages.map(image => {
+        //     console.log(image)
+        //     return (
+        //         // <img src={image.imageUrl}/>
+        //         <p>test</p>
+        //     )
+        // })
+
         return (
             <div>
-            <Navigation />
+                <Navigation />
                 <p className='f3'>
                     {'Image History by Date'}
                 </p>
-                {this.state.imageUrl 
+                {this.state.allImages 
                 ?
-                <FaceRecognition imageUrl={this.state.imageUrl} boxArea={this.state.displayBox}/>
+                <img src={this.state.allImages[0]}></img>
                 : 
                 null}
             </div>
