@@ -54,7 +54,8 @@ ImageRecognitionController.post('/verify', async (req, res) => {
 // Insert Image URL
 ImageRecognitionController.post('/image', async (req, res) => {
   try {
-    const newImage = await IRCModelApiApi.addNewImage(req.body)
+    console.log(req.body)
+    const newImage = await IRCModelApi.addNewImage(req.body)
     return res.status(200).json(newImage)
   } catch(e) {
     const message = 'Failed to insert image'

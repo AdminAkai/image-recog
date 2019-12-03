@@ -93,6 +93,7 @@ const getImage = (id) => {
 }
 
 const addNewImage = (data) => {
+    console.log(data)
     return ImageHistCollection.create(data)
 }
 
