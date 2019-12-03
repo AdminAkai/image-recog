@@ -27,7 +27,7 @@ export default class ImageLinkForm extends Component {
     }
 
     setUser = async () => {
-        const currentUser = await axios.get(`/api/getusers/${this.props.match.params.id}`) 
+        const currentUser = await axios.get(`/getuser/${this.props.match.params.id}`) 
         const currentUserInfo = {
             currentUserId: currentUser.data._id,
             currentUsername: currentUser.data.username
