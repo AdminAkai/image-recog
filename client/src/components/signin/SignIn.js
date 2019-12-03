@@ -49,7 +49,7 @@ export default class SignIn extends Component {
 
     render() {
         return(
-            <div className="flex center">
+            <div className="flex center h-100">
                 {this.renderRedirect()}
                 <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
                     <main className="pa4 black-80">
