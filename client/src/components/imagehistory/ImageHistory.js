@@ -21,6 +21,7 @@ export default class ImageHistory extends Component {
 
     componentDidMount() {
         this.setUser()
+        this.getAllImages()
     }
 
     setUser = async () => {
@@ -59,7 +60,7 @@ export default class ImageHistory extends Component {
             <div>
             <Navigation />
                 <p className='f3'>
-                    {'This will detect faces in your pictures.'}
+                    {'Image History by Date'}
                 </p>
                 {this.state.imageUrl 
                 ?
