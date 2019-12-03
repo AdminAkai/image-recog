@@ -39,7 +39,6 @@ export default class ImageLinkForm extends Component {
         const image = document.getElementById('input-image')
         const width = Number(image.width)
         const height = Number(image.height)
-        console.log(width, height)
         return {
             leftCol: data.left_col * width,
             topRow: data.top_row * height,
@@ -64,11 +63,11 @@ export default class ImageLinkForm extends Component {
         this.setState({imageUrl: this.state.input}, async () => {
             console.log('click')
             const newDetect = await app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.imageUrl)
-            console.log(newDetect.outputs)
+            console.log(newDetect.outputs[0].data.regions)
             newDetect.outputs[0].data.regions.forEach(region => 
                 allFaces.push(this.calculateFaceLocation(region.region_info.bounding_box))
             )
-            console.log(allFaces)
+            console.log(`all calculated faces: ${allFaces}`)
             this.displayFaceBox(allFaces)    
         })
         // const data = {
@@ -93,7 +92,11 @@ export default class ImageLinkForm extends Component {
                         <input className='w-30 grow f4 link ph2 pv1 dib white bg-light-blue' type='submit' value='Recognize' onClick={this.onButtonClick}></input>
                     </form>
                 </div>
+                {this.state.imageUrl 
+                ?
                 <FaceRecognition imageUrl={this.state.imageUrl} boxArea={this.state.displayBox}/>
+                : 
+                null}
             </div>
         )
     }
