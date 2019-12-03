@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import FaceRecognition from '../facerecognition/FaceRecognition'
 import './ImageLinkForm.css'
 import Navigation from '../navigation/Navigation'
+import axios from 'axios'
 
 
 const Clarifai = require('clarifai')
