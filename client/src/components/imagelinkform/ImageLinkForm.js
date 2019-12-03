@@ -48,7 +48,8 @@ export default class ImageLinkForm extends Component {
     }
 
     displayFaceBox = (displayBox) => {
-        this.setState(displayBox)
+        this.setState({displayBox})
+        console.log(this.state.displayBox)
     }
 
     onTextChange = (event) => {
@@ -67,7 +68,7 @@ export default class ImageLinkForm extends Component {
             newDetect.outputs[0].data.regions.forEach(region => 
                 allFaces.push(this.calculateFaceLocation(region.region_info.bounding_box))
             )
-            console.log(`all calculated faces: ${allFaces}`)
+            console.log(allFaces)
             this.displayFaceBox(allFaces)    
         })
         // const data = {
