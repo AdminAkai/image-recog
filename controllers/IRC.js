@@ -21,6 +21,20 @@ ImageRecognitionController.get('/getuser/:id', async (req, res) => {
   }
 })
 
+// Get image by User ID
+ImageRecognitionController.get('/imagehistory', async (req, res) => {
+  try {
+    const allImages = await IRCModelApi.getAllImagesByUserID(req.body)
+    return res.status(200).json(allImages)
+  } catch(e) {
+    const message = 'Failed to get image history'
+    res.status(500).json({
+      error: e,
+      message
+    })
+  }
+})
+
 // Register User
 ImageRecognitionController.post('/register', async (req, res) => {
   try {

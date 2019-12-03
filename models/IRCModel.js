@@ -88,6 +88,10 @@ const getAllImages = () => {
     return ImageHistCollection.find({}).sort({inputAt: 'descending'})
 }
 
+const getAllImagesByUserID = (id) => {
+    return ImageHistCollection.find({_id: id}).sort({inputAt: 'descending'})
+}
+
 const getImage = (id) => {
     return ImageHistCollection.findById({_id: id})
 }
@@ -124,6 +128,7 @@ module.exports = {
     getImage,
     addNewImage,
     deleteImage,
+    getAllImagesByUserID,
     newLogin,
     getAllLogins
 }
