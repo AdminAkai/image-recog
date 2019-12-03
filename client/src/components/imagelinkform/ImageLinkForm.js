@@ -18,12 +18,12 @@ export default class ImageLinkForm extends Component {
         currentUsername: '',
         input: '',
         imageUrl:'',
-        displayBox: {},
+        displayBox: [],
         date: new Date()
       }
 
     componentDidMount() {
-        this.setUser
+        this.setUser()
     }
 
     setUser = async () => {
@@ -49,10 +49,7 @@ export default class ImageLinkForm extends Component {
     }
 
     displayFaceBox = (displayBox) => {
-        console.log(displayBox)
-        this.setState({displayBox}, () => {
-            console.log(this.state.displayBox)
-        })
+        this.setState(displayBox)
     }
 
     onTextChange = (event) => {
@@ -63,20 +60,24 @@ export default class ImageLinkForm extends Component {
 
     onButtonClick = async (event) => {
         event.preventDefault()
+        const allFaces = []
         this.setState({imageUrl: this.state.input}, async () => {
             console.log('click')
             const newDetect = await app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.imageUrl)
-            console.log(newDetect.outputs[0].data.regions[0])
-            console.log(newDetect.outputs[0].data.regions[0].region_info.bounding_box)
-            this.displayFaceBox(this.calculateFaceLocation(newDetect.outputs[0].data.regions[0].region_info.bounding_box))
+            console.log(newDetect.outputs)
+            newDetect.outputs[0].data.regions.forEach(region => 
+                allFaces.push(this.calculateFaceLocation(region.region_info.bounding_box))
+            )
+            console.log(allFaces)
+            this.displayFaceBox(allFaces)    
         })
-        const data = {
-            imageUrl: this.state.imageUrl,
-            inputAt: this.state.date,
-            inputById: this.state.currentUserId,
-            inputByName: this.state.currentUsername
-        }
-        await axios.post('/image', data)
+        // const data = {
+        //     imageUrl: this.state.imageUrl,
+        //     inputAt: this.state.date,
+        //     inputById: this.state.currentUserId,
+        //     inputByName: this.state.currentUsername
+        // }
+        // await axios.post('/image', data)
     }
 
     render() {
