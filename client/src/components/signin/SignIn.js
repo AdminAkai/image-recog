@@ -39,6 +39,7 @@ export default class SignIn extends Component {
         if (verifiedUser.data !== 'error') {
             this.setState({currentUserId: verifiedUser.data._id}, () => {
                 this.currentDashboard = `/dashboard/${this.state.currentUserId}`
+                console.log(this.currentDashboard)
                 this.setState({loggedIn: true})
             })
         } else {
@@ -49,6 +50,7 @@ export default class SignIn extends Component {
     render() {
         return(
             <div className="flex center">
+                {this.renderRedirect()}
                 <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
                     <main className="pa4 black-80">
                         <form className="ba b--transparent ph0 mh0s">
