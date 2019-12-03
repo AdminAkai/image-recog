@@ -40,10 +40,10 @@ export default class ImageLinkForm extends Component {
         const width = Number(image.width)
         const height = Number(image.height)
         return {
-            leftCol: data.left_col * width,
-            topRow: data.top_row * height,
-            rightCol: width - (data.right_col * width),
-            bottomRow: height - (data.bottom_row * height)
+            leftCol: (data.left_col * width) * .985,
+            topRow: (data.top_row * height) * .985,
+            rightCol: (width - (data.right_col * width)) * .985,
+            bottomRow: (height - (data.bottom_row * height)) * .985
         }
     }
 
