@@ -13,12 +13,27 @@ const app = new Clarifai.App({
 export default class ImageLinkForm extends Component {
 
     state = {
+        currentUserId: '',
+        currentUsername: '',
         input: '',
         imageUrl:'',
         displayBox: {},
         date: new Date()
       }
 
+    componentDidMount() {
+        this.setUser
+    }
+
+    setUser = async () => {
+        const currentUser = await axios.get(`/api/getusers/${this.props.match.params.id}`) 
+        const currentUserInfo = {
+            currentUserId: currentUser.data._id,
+            currentUsername: currentUser.data.username
+        }
+        this.setState(currentUserInfo)
+    }
+      
     calculateFaceLocation = (data) => {
         const image = document.getElementById('input-image')
         const width = Number(image.width)
@@ -54,6 +69,13 @@ export default class ImageLinkForm extends Component {
             console.log(newDetect.outputs[0].data.regions[0].region_info.bounding_box)
             this.displayFaceBox(this.calculateFaceLocation(newDetect.outputs[0].data.regions[0].region_info.bounding_box))
         })
+        const data = {
+            imageUrl: this.state.imageUrl,
+            inputAt: this.state.date,
+            inputById: this.state.currentUserId,
+            inputByName: this.state.currentUsername
+        }
+        await axios.post('/image', data)
     }
 
     render() {

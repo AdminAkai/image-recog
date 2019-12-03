@@ -7,7 +7,7 @@ const IRCModelApi = require('../models/IRCModel.js')
 
 const ImageRecognitionController = express.Router()
 
-
+// Register User
 ImageRecognitionController.post('/register', async (req, res) => {
   try {
     const registeredUser = await IRCModelApi.addNewUser(req.body)
@@ -36,11 +36,38 @@ ImageRecognitionController.post('/verify', async (req, res) => {
     const message = 'Failed to verify user'
     res.status(500).json({ 
       error: e,
-      message,
+      message
     })
   }
 })
 
+// Get User
+ImageRecognitionController.get('/getuser/:id', async (req, res) => {
+  try {
+    const currentUser = await IRCModelApi.getUser(req.params.id)
+    return res.status(200).json(currentUser)
+  } catch(e) {
+    const message = 'Failed to get user'
+    res.status(500).json({
+      error: e,
+      message
+    })
+  }
+})
+
+// Insert Image URL
+ImageRecognitionController.post('/image', async (req, res) => {
+  try {
+    const newImage = await IRCModelApiApi.addNewImage(req.body)
+    return res.status(200).json(newImage)
+  } catch(e) {
+    const message = 'Failed to insert image'
+    res.status(500).json({
+      error: e,
+      message
+    })
+  }
+})
 
 module.exports = {
   ImageRecognitionController
