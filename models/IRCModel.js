@@ -57,7 +57,7 @@ const getAllUsers = () => {
     return UserCollection.find({}).sort({username: 'ascending'})
 }
 
-const getUser = () => {
+const getUser = (id) => {
     return UserCollection.findById({_id: id})
 }
 

@@ -14,7 +14,7 @@ const app = new Clarifai.App({
 export default class ImageLinkForm extends Component {
 
     state = {
-        currentUserId: '',
+        currentUserId: this.props.match.params.id,
         currentUsername: '',
         input: '',
         imageUrl:'',
@@ -70,14 +70,16 @@ export default class ImageLinkForm extends Component {
             )
             console.log(allFaces)
             this.displayFaceBox(allFaces)    
+            const data = {
+                imageUrl: this.state.imageUrl,
+                inputAt: this.state.date,
+                inputById: this.state.currentUserId,
+                inputByName: this.state.currentUsername
+            }
+            console.log(data)
+            const newImageInput = await axios.post('/image', data)
+            console.log(newImageInput)
         })
-        // const data = {
-        //     imageUrl: this.state.imageUrl,
-        //     inputAt: this.state.date,
-        //     inputById: this.state.currentUserId,
-        //     inputByName: this.state.currentUsername
-        // }
-        // await axios.post('/image', data)
     }
 
     render() {
