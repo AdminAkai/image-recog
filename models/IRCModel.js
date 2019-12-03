@@ -66,7 +66,7 @@ const addNewUser = (data) => {
 }
 
 const updateUser = (id, data) => {
-    return UserCollection.updateOne({_id: id}, updateData)
+    return UserCollection.updateOne({_id: id}, data)
 }
 
 const deleteUser = (id) => {
@@ -106,7 +106,10 @@ const getAllLogins = () => {
 }
 
 const newLogin = (data) => {
-    return LoginHistCollection.create(data)
+    const loginTransaction = {
+        loginAttemptDate: data
+    }
+    return LoginHistCollection.create(loginTransaction)
 }
 
 module.exports = {
