@@ -76,10 +76,12 @@ export default class ImageHistory extends Component {
             console.log(image)
             return (
                 <div className="absolute mt4">
-                    <img src={image.imageUrl}/>
+                    <img src={image.imageUrl} width="500px" height="auto"/>
                 </div>
             )   
         })
+
+        console.log(everyImage)
 
         return (
             <div>
@@ -89,7 +91,7 @@ export default class ImageHistory extends Component {
                 </p>
                 {this.state.allImages 
                 ?
-                null
+                everyImage
                 : 
                 null}
             </div>
